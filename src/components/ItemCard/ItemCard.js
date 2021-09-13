@@ -39,26 +39,31 @@ function ItemCard({
 
   return (
     <article className="item-card col col-12 col-md-6 col-lg-4">
-      <img src={img} className="lll" alt={title} />
-      <h1>{title}</h1>
-      <p>{shortDescription}</p>
-      <div handleClick={onDownVote} downVotes={downVotes}>
-        hello
-      </div>
-      <div handleClick={onUpVote} upVotes={upVotes}>
-        hello
-      </div>
-      <div handleClick={onSetFavorite}>hello</div>
-      <div handleClick={onAddToCart} handleAddToCart={handleAddToCart}>
-        hello
-      </div>
+      <header>
+        <img src={img} className="item-card__image" alt={title} />
+        <FavoriteIconButton
+          handleSetFavorite={onSetFavorite}
+          isFavourite={isFavourite}
+        />
+        <h2>{title}</h2>
+      </header>
+
       <Divider />
-      <Button name="up vote product" />
-      <Button name="add to cart" />
-      <IconButton />
-      <FavoriteIconButton isFavourite={isFavourite} />
-      <ThumbDown />
-      <ThumbUp />
+      <p>{shortDescription}</p>
+      <Divider />
+      <footer className="d-flex">
+        <IconButton aria-label="down vote product" handleClick={onDownVote}>
+          <ThumbDown />
+        </IconButton>
+        <p>{downVotes.currentValue}</p>
+        <IconButton aria-label="up vote product" handleClick={onUpVote}>
+          <ThumbUp />
+        </IconButton>
+        <p>{upVotes.currentValue}</p>
+        <Button name="add to cart" onClick={onAddToCart}>
+          Add to cart
+        </Button>
+      </footer>
     </article>
   );
 }
