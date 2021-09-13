@@ -1,17 +1,17 @@
 import React from "react";
 
-// import products from "../../utils/demo-data";
+import products from "../../utils/demo-data";
 
 import AppHeader from "../../components/AppHeader";
 import Main from "../../components/Main";
 import Footer from "../../components/Footer";
-// import ProductsListing from "../../components/ProductsListing";
+import ProductsListing from "../../components/ProductsListing";
 
 function Home() {
-  // function handleDownVote() {}
-  // function handleUpVote() {}
-  // function handleSetFavorite() {}
-  // function handleAddToCart() {}
+  function handleDownVote() {}
+  function handleUpVote() {}
+  function handleSetFavorite() {}
+  function handleAddToCart() {}
 
   return (
     <>
@@ -24,13 +24,13 @@ function Home() {
           </p>
           <p className="font-weight-bold">Buy now!</p>
         </header>
-        {/* <ProductsListing
+        <ProductsListing
           products={products}
           handleDownVote={handleDownVote}
           handleUpVote={handleUpVote}
           handleSetFavorite={handleSetFavorite}
           handleAddToCart={handleAddToCart}
-        /> */}
+        />
       </Main>
       <Footer />
     </>
