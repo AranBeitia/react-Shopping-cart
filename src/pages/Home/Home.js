@@ -24,7 +24,13 @@ function Home() {
           </p>
           <p className="font-weight-bold">Buy now!</p>
         </header>
-        {/* <ProductsListing /> */}
+        {/* <ProductsListing
+          products={products}
+          handleDownVote={handleDownVote}
+          handleUpVote={handleUpVote}
+          handleSetFavorite={handleSetFavorite}
+          handleAddToCart={handleAddToCart}
+        /> */}
       </Main>
       <Footer />
     </>
