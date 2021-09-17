@@ -4,6 +4,22 @@ import Home from "./pages/Home";
 
 import * as api from "./api";
 
+const LOCAL_STORAGE_KEY = "react-sc-state";
+
+function loadLocalStorageData() {
+  const prevItems = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+  if(!prevItems) {
+    return null
+  }
+
+  try {
+    return JSON.parse(prevItems)
+  } catch (error) {
+    return null
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,16 +34,25 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
+    const prevItems = loadLocalStorageData()
 
-    api.getProducts().then((data) => {
+    if(!prevItems) {
       this.setState({
-        products: data,
-        isLoading: false,
+        isLoading: true,
       });
-    });
+      api.getProducts().then((data) => {
+        this.setState({
+          products: data,
+          isLoading: false,
+        });
+      });
+      return;
+    }
+
+    this.setState({
+      cartItems:prevItems.cartItems,
+      products: prevItems.products
+    })
   }
 
   // handleAddToCart(productId) {}
