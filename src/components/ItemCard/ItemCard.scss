@@ -1,8 +1,8 @@
 .item-card {
-  border: 1px solid red;
+  padding: 1rem;
 
   &__image {
     width: 100%;
+    border-radius: 5px;
   }
 }
-
