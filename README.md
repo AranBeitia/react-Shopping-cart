@@ -6,7 +6,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-# Assembler School: React Shopping Cart Components
+# Assembler School: React Shopping Cart State
 
 In this project you will learn how to create a React.js and how to apply all the
 important concepts.
@@ -26,7 +26,7 @@ account:
 <img src="https://docs.github.com/assets/images/help/repository/fork_button.jpg" alt="Fork on GitHub" width='450'>
 
 ```
-$ git clone https://github.com/assembler-school/react-shopping-cart-components.git
+$ git clone https://github.com/assembler-school/react-shopping-cart-state.git
 ```
 
 ## Contents and Branches Naming Strategy
@@ -73,7 +73,7 @@ $ npm install
 
 ### Running the Tests
 
-The tests that validate your solution can be executed by runing the following
+The tests that validate your solution can be executed by running the following
 command:
 
 ```
@@ -100,7 +100,8 @@ In this pill we won't deploy the app.
 
 ## Project requirements
 
-This is an overview of the main requirements of this project.
+This is an overview of the main requirements of this project. The exact ones are
+found in the doc that the academic team will provide you.
 
 - You must follow all the instructions of the project step-by-step
 - You should always try to solve them by yourself before asking for help
@@ -112,47 +113,7 @@ This is an overview of the main requirements of this project.
 - Once you are done, you can move on to the optional ones that are marked as
   `Extra 💯`
 
-### 1. Main component
-
-#### File
-
-```sh
-/src/components/Main
-```
-
-In this step you will need to finish the code with the following requirements:
-
-1. return a `<main>` html5 element that renders the `{children}` prop it
-   receives
-2. receive all the other `...props` and forward them to the `<main>` element
-3. export the component from an `index.js` file. you should export the default
-   component if is the only one
-
-#### Test suite name
-
-The following test suite validates that everything is correct: `<Main />`.
-
-### 2. Button component
-
-#### File
-
-```sh
-/src/components/Button
-```
-
-In this step you will need to finish the code with the following requirements:
-
-1. return a `<button>` html5 element instead of the `div`
-2. include all the previous props that the `div` element had
-3. receive a `disabled` prop that has a default value of `false` that is
-   assigned to the `<button>` element
-4. receive all the other `...props` and forward them to the `<button>` element
-
-#### Test suite name
-
-The following test suite validates that everything is correct: `<Button />`.
-
-### 3. App component
+### 1. Loading products from the `api`
 
 #### File
 
@@ -160,130 +121,363 @@ The following test suite validates that everything is correct: `<Button />`.
 /src/App.js
 ```
 
-In this step you will need to finish the code with the following requirements:
+In this step you will need to call the `api.getProducts()` method inside the
+`componentDidMount()` lifecycle method and store the data in state.
 
-1. render the `<Home />` component from the `pages` folder
+This method returns the products that the app needs. Therefore, you will need to
+call `setState({products: apiProducts})` once the promise is finished.
 
 #### Test suite name
 
-This step doesn't have any tests.
+@TODO
 
-### 4. Home component
+### 2. Status messages in the `<Home />` component
 
 #### File
 
 ```sh
-/src/pages/Home
+/src/pages/Home.js
 ```
 
-In this step you will need to finish the code with the following requirements:
+In this step you will have to:
 
-1.  uncomment all the code
-2.  render the `<ProductsListing />` component and pass the following props:
-    1. `products={...}`
-    2. `handleDownVote={...}`
-    3. `handleUpVote={...}`
-    4. `handleSetFavorite={...}`
-    5. `handleAddToCart={...}`
+1. render a text of `Loading products...` when the `isLoading` prop is `true`
+2. render:
+   1. `<h2>Something went wrong...</h2>` when the `hasError` prop is `true`
+   2. and the error message it self: `<pre><code>{loadingError}</code></pre>`
 
 #### Test suite name
 
-The following test suite validates that everything is correct: `<Home />`.
+@TODO
 
-### 5. ItemCard component
+### 3. Add products to the cart
 
 #### File
 
 ```sh
-/src/components/ItemCard
+/src/App.js
 ```
 
-In this step you will need to finish the code with the following requirements:
+In this step you will have to be able to add elements to the cart:
 
-1. uncomment all the code
-2. destructure the following props in the component:
-   1. `id`
-   2. `img`
-   3. `title`
-   4. `shortDescription`
-   5. `isFavorite`
-   6. `upVotes`
-   7. `downVotes`
-   8. `handleDownVote`
-   9. `handleUpVote`
-   10. `handleSetFavorite`
-   11. `handleAddToCart`
-3. add the styles in the `ItemCard.scss` file so that it matches visually the
-   screenshot bellow
-4. render the `img` prop inside an `img` element
-5. render the `FavoriteIconButton` component and pass it the following props:
-   1. `handleSetFavorite={onSetFavorite}`
-   2. `isFavorite=...`
-6. render the `title` prop inside an `h2` element
-7. render the `shortDescription` prop inside a `p` element
-8. render a `IconButton` component and pass in the following props:
-   1. `aria-label="up vote product"`
-   2. `handleClick={onUpVote}`
-   3. children: `<ThumbDown />` component
-   4. bellow it a `p` element with the `textContent` of the
-      `downVotes.currentValue` prop
-9. render a `IconButton` component and pass in the following props:
-   1. `aria-label="down vote product"`
-   2. `handleClick={onDownVote}`
-   3. children: `<ThumbUp />` component
-   4. bellow it a `p` element with the `textContent` of the
-      `upVotes.currentValue` prop
-10. A `<Button>` component that has the following prop:
-    1. `onClick={onAddToCart}`
-    2. and a text of `Add to cart`
-11. default export the component in the `index.js` file
+For this, you will need to complete the code of the
+`handleAddToCart(productId) {}` method in the `App` component so that:
 
-#### ItemCard Screenshot
+It searches if the `state.cartItems` has a product with the `productId`
 
-<img src="src/assets/item-card-screenshot.png">
+1.  if it finds it, it will have to increment the quantity of the item without
+    adding a new element to the cart, just increment the quantity of the
+    existing one
+2.  if it doesn't find it, it will have to copy the product from the
+    `state.products` property and create a new cart item in the
+    `state.cartItems` property with the following keys:
+    1. `id`
+    2. `title`
+    3. `img`
+    4. `price`
+    5. `unitsInStock`
+    6. `createdAt`
+    7. `updatedAt`
+    8. `quantity`
+    9. furthermore, when creating the new cart item its quantity will have to be
+       incremented by 1
+    10. `@hint`: the `createdAt` and `updatedAt` values can be created with:
+        `new Date().toISOString()`
+
+### Extra steps 💯
+
+1. Check if the `item.quantity >= item.unitsInStock` so that users cannot add
+   items to the cart if the current `quantity` is greater or equal to the
+   `unitsInStock`
+
+### Sample state shape with cart items
+
+```json
+{
+  "cartItems": [
+    {
+      "id": "fbabb4ce-823f-5790-9b87-35819d4be380",
+      "title": "Puma 80's",
+      "img": "/static/media/img2.2e6236fd.jpeg",
+      "price": 109,
+      "unitsInStock": 5,
+      "createdAt": "2021-04-23T09:12:24.2424+02",
+      "updatedAt": "2021-04-23T09:12:24.2424+02",
+      "quantity": 2
+    },
+    {
+      "id": "65d6b269-209b-50ac-a566-ca6a334aa6f0",
+      "title": "Nike Runner 2000",
+      "img": "/static/media/img1.a79d9fb0.jpeg",
+      "price": 88,
+      "unitsInStock": 5,
+      "createdAt": "2021-04-23T09:12:24.2424+02",
+      "updatedAt": "2021-04-23T09:12:24.2424+02",
+      "quantity": 4
+    }
+  ],
+  "products": [
+    {
+      "id": "65d6b269-209b-50ac-a566-ca6a334aa6f0",
+      "title": "Nike Runner 2000",
+      "price": 88,
+      "img": "/static/media/img1.a79d9fb0.jpeg",
+      "shortDescription": "Ipsum sint consequat culpa adipisicing occaecat aliquip aliquip sit labore aute.",
+      "longDescription": "Occaecat nostrud ipsum excepteur adipisicing dolor. Deserunt pariatur commodo duis Lorem laboris irure dolor dolor proident aute pariatur. Nostrud consectetur labore anim est deserunt esse est nostrud ipsum velit incididunt aliqua anim. Occaecat exercitation culpa proident aute aliqua exercitation nulla cillum velit nisi reprehenderit Lorem sunt.",
+      "isFavorite": true,
+      "createdAt": "2021-04-23T09:12:24.2424+02",
+      "updatedAt": "2021-04-23T09:12:24.2424+02",
+      "unitsInStock": 5,
+      "quantity": 0,
+      "votes": {
+        "upVotes": {
+          "upperLimit": 10,
+          "currentValue": 7
+        },
+        "downVotes": {
+          "lowerLimit": 10,
+          "currentValue": 6
+        }
+      },
+      "author": {
+        "id": "9cb107d1-cc36-5399-a8b2-0ad65daa5d36",
+        "firstName": "Clyde",
+        "lastName": "Tucker",
+        "email": "mepsukjid@riz.jm"
+      }
+    },
+    {
+      "id": "fbabb4ce-823f-5790-9b87-35819d4be380",
+      "title": "Puma 80's",
+      "price": 109,
+      "img": "/static/media/img2.2e6236fd.jpeg",
+      "shortDescription": "Ea nisi minim cillum quis enim ullamco enim sint.",
+      "longDescription": "Eu in voluptate ut magna id sint elit est enim et officia. Lorem id commodo duis dolor ullamco consequat dolor culpa. Irure nostrud veniam nulla enim occaecat nostrud ullamco sunt. Excepteur esse occaecat cupidatat excepteur adipisicing fugiat cillum amet do ad aliqua.",
+      "isFavorite": true,
+      "createdAt": "2021-04-23T09:12:24.2424+02",
+      "updatedAt": "2021-04-23T09:12:24.2424+02",
+      "unitsInStock": 5,
+      "quantity": 0,
+      "votes": {
+        "upVotes": {
+          "upperLimit": 10,
+          "currentValue": 2
+        },
+        "downVotes": {
+          "lowerLimit": 10,
+          "currentValue": 0
+        }
+      },
+      "author": {
+        "id": "b2c1f67d-91ee-5a62-b198-4229a4ecc0b8",
+        "firstName": "Aaron",
+        "lastName": "Casey",
+        "email": "mascefjuh@rekos.pl"
+      }
+    }
+  ]
+}
+```
 
 #### Test suite name
 
-The following test suite validates that everything is correct: `<ItemCard />`.
+@TODO
 
-### 6. ProductsListing component
+### 4. Remove cart items
 
 #### File
 
 ```sh
-/src/components/ProductsListing
+/src/App.js
 ```
 
-In this step you will need to finish the code with the following requirements:
+In this step you will have to be able to remove elements from the cart:
 
-1. uncomment all the code
-2. destructure the following props in the component:
-   1. `products`
-   2. `handleDownVote`
-   3. `handleUpVote`
-   4. `handleSetFavorite`
-   5. `handleAddToCart`
-   6. `...props`
-3. render the `ItemCard` component using `[].map()` and pass in the following
-   props:
-   1. `key={product.id}`
-   2. `id={product.id}`
-   3. `img={product.img}`
-   4. `title={product.title}`
-   5. `shortDescription={product.shortDescription}`
-   6. `upVotes={product.votes.upVotes}`
-   7. `handleUpVote={handleUpVote}`
-   8. `downVotes={product.votes.downVotes}`
-   9. `handleDownVote={handleDownVote}`
-   10. `isFavorite={product.isFavorite}`
-   11. `handleSetFavorite={handleSetFavorite}`
-   12. `handleAddToCart={handleAddToCart}`
-4. default export the component in the `index.js` file
+For this, you will need to complete the code of the `handleRemove(productId) {}`
+method in the `App` component so that it removes the `cartItem` that has the
+`productId` that the method receives.
 
 #### Test suite name
 
-The following test suite validates that everything is correct:
-`<ProductsListing />`.
+@TODO
+
+### 5. Show to cart total using `[].reduce()`
+
+#### File
+
+```sh
+/src/components/Cart
+```
+
+In this step you will have to be able to show to cart total based on the items
+in the cart (`state.cartItems`).
+
+You can do this with any loop in javascript but we recommend using
+`[].reduce()`.
+
+```diff
+- <strong>0€</strong>
++ <strong>{getCartTotal(cartItems)}€</strong>
+```
+
+```diff
+-// function getCartTotal() {
+-//   return 0;
+-// }
++function getCartTotal(cart) {
++  return cart.reduce((accum, item) => { ... }, 0);
++}
+```
+
+#### Test suite name
+
+@TODO
+
+## Extra steps 💯
+
+### 1. Update the quantity of the cart item using a dropdown (select form element)
+
+#### File
+
+```sh
+/src/App.js
+```
+
+In this step you will have to be able to update the quantity of elements in the
+cart using a `select` element.
+
+For this, you will need to complete the code of the
+`handleChange(event, productId) {}` method in the `App` component so that:
+
+It finds the `cartItem` that has the `productId` from the `state.cartItems`
+property and increment the `quantity` by `1` if the
+`item.quantity <= item.unitsInStock`.
+
+### Extra steps 💯
+
+1. In the `<ShoppingCartItem />` component check the value of the `unitsInStock`
+   property of the `cartItem` and create as many `<option>` child elements of
+   the `<select>` element as there are `unitsInStock`.
+
+**Example**
+
+`unitsInStock: 3`
+
+```jsx
+<select
+  className="custom-select"
+  onChange={onHandleChange}
+  onBlur={onHandleChange}
+  value={quantity}
+>
+  <option value="1,">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select>
+```
+
+Can be created with:
+
+```jsx
+function buildSelectOptions(unitsInStock) {
+  return Array.from({ length: unitsInStock }, (_value, index) => {
+    const currentIndex = index + 1;
+    return (
+      // <option ...>...</option>
+    );
+  });
+}
+
+<select
+  className="custom-select"
+  onChange={onHandleChange}
+  onBlur={onHandleChange}
+  value={quantity}
+>
+  {buildSelectOptions(unitsInStock)}
+</select>;
+```
+
+#### Test suite name
+
+@TODO
+
+### 2. Set the product as favorite
+
+#### File
+
+```sh
+/src/App.js
+```
+
+In this step you will have to be able to mark an element as favorite by clicking
+on the `<FavoriteIconButton />` in the `<ItemCard />` component.
+
+For this you will have to complete the code of the
+`handleSetFavorite(productId)` method in the `App.js` component.
+
+#### Test suite name
+
+@TODO
+
+### 3. Up vote a product
+
+#### File
+
+```sh
+/src/App.js
+```
+
+In this step you will have to be able to **up** vote a product by clicking on
+the `<IconButton />` in the `<ItemCard />` component that has the `onUpVote`
+prop.
+
+For this you will have to complete the code of the `handleUpVote(productId)`
+method in the `App.js` component so that:
+
+1. if: `product.votes.upVotes.currentValue < product.votes.upVotes.upperLimit`
+   1. then: `product.votes.upVotes.currentValue + 1`
+2. else: `return product`
+
+### 3. Down vote a product
+
+#### File
+
+```sh
+/src/App.js
+```
+
+In this step you will have to be able to **down** vote a product by clicking on
+the `<IconButton />` in the `<ItemCard />` component that has the `onUpVote`
+prop.
+
+For this you will have to complete the code of the `handleUpVote(productId)`
+method in the `App.js` component so that:
+
+1. if:
+   `product.votes.downVotes.currentValue < product.votes.downVotes.lowerLimit`
+   1. then: `product.votes.downVotes.currentValue + 1`
+2. else: `return product`
+
+#### Test suite name
+
+@TODO
+
+### 4. Store in `localStorage` the products and cart items of the App component
+
+#### File
+
+```sh
+/src/App.js
+```
+
+In this step you will have to be able to read from `localStorage` the state data
+in `componentDidMount()` and update the `localStorage` data when the state is
+updated in `componentDidUpdate()`.
+
+#### Test suite name
+
+@TODO
 
 ## Project delivery
 

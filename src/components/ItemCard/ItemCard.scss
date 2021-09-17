@@ -5,4 +5,18 @@
     width: 100%;
     border-radius: 5px;
   }
+
+  &--popular {
+    color: rgb(4, 105, 0);
+    background-color: #dcf8dc;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  &--unpopular {
+    color: rgb(105, 33, 0);
+    background-color: #fae8cc;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+  }
 }

@@ -42,7 +42,6 @@ function ItemCard({
       <header className="position-relative">
         <img src={img} className="item-card__image" alt={title} />
         <FavoriteIconButton
-          className="item-card__fav-icon"
           handleSetFavorite={onSetFavorite}
           isFavourite={isFavourite}
         />
