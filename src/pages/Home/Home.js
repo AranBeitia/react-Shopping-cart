@@ -20,7 +20,7 @@ function Home({
   handleChange,
 }) {
   return (
-    <>
+    <div>
       <AppHeader />
       <Main className="container-fluid">
         <div className="row">
@@ -44,7 +44,9 @@ function Home({
               {hasError && (
                 <div className="col col-12">
                   <h2>Something went wrong...</h2>
-                  <pre><code>{loadingError}</code></pre>
+                  <pre>
+                    <code>{loadingError}</code>
+                  </pre>
                 </div>
               )}
               {!isLoading && !hasError && (
@@ -70,7 +72,7 @@ function Home({
         </div>
       </Main>
       <Footer />
-    </>
+    </div>
   );
 }
 

@@ -6,7 +6,7 @@ function ProductsListing({
   products,
   handleDownVote,
   handleUpVote,
-  handleSetFavourite,
+  handleSetFavorite,
   handleAddToCart,
   ...props
 }) {
@@ -20,12 +20,12 @@ function ProductsListing({
           title={product.title}
           shortDescription={product.shortDescription}
           upVotes={product.votes.upVotes}
-          handleUpVote={product.handleUpVote}
+          handleUpVote={handleUpVote}
           downVotes={product.votes.downVotes}
-          handleDownVote={product.handleDownVote}
-          isFavourite={product.isFavourite}
-          handleSetFavorite={product.handleSetFavorite}
-          handleAddToCart={product.handleAddToCart}
+          handleDownVote={handleDownVote}
+          isFavorite={product.isFavorite}
+          handleSetFavorite={handleSetFavorite}
+          handleAddToCart={handleAddToCart}
         />
       ))}
     </section>

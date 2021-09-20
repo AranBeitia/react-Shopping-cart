@@ -4,9 +4,9 @@ import Home from "./pages/Home";
 
 import * as api from "./api";
 
-function buildNewCart (cartItem) {
-  if(cartItem.quantity >= cartItem.unitsInStock) {
-    return cartItem
+function buildNewCartItem(cartItem) {
+  if (cartItem.quantity >= cartItem.unitsInStock) {
+    return cartItem;
   }
 
   return {
@@ -16,9 +16,9 @@ function buildNewCart (cartItem) {
     price: cartItem.price,
     unitsInStock: cartItem.unitsInStock,
     createdAt: cartItem.createdAt,
-    updatedAt: cardItem.updatedAt,
-    quantity: cartItem.quantity + 1
-  }
+    updatedAt: cartItem.updatedAt,
+    quantity: cartItem.quantity + 1,
+  };
 }
 
 class App extends Component {
@@ -32,65 +32,164 @@ class App extends Component {
       hasError: false,
       loadingError: null,
     };
-    this.handleAddToCart = this.handleAddToCart.bind(this)
+
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+    // this.handleRemove = this.handleRemove.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleDownVote = this.handleDownVote.bind(this);
+    // this.handleUpVote = this.handleUpVote.bind(this);
+    // this.handleSetFavorite = this.handleSetFavorite.bind(this);
   }
 
   componentDidMount() {
-    const lastState = JSON.parse(localStorage.getItem("app-state"))
+    const prevItems = JSON.parse(localStorage.getItem("item-cart"))
 
-    if(!lastState) {
+    if (!prevItems) {
       this.setState({
-        isLoading: true
-      })
+        isLoading: true,
+      });
 
       api.getProducts().then((data) => {
         this.setState({
           products: data,
           isLoading: false,
-        })
-      })
-      return
+        });
+      });
+      return;
     }
 
     this.setState({
-      products: lastState.products,
-      cartItems:lastState.cartItems
-    })
+      cartItems: prevItems.cartItems,
+      products: prevItems.products,
+    });
   }
 
-  componentDidUpdate () {
-    const { products, cartItems } = this.state
-    localStorage.setItem("app-state", JSON.stringify({products,cartItems }))
+  componentDidUpdate() {
+    const { cartItems, products } = this.state;
+    localStorage.setItem("item-cart", JSON.stringify({ cartItems, products }));
   }
 
   handleAddToCart(productId) {
-    const { products, cardItems } = this.state
-    const prevCartItem = cardItems.find((item) => item.id === productId)
-    const productFound = products.find((product) => product.id === productId)
-    console.log(productFound);
+    const { cartItems, products } = this.state;
 
-    if(prevCartItem) {
-      const updateCartItems = cartItems.map(item => {
-        if(item.id !== productId) { return item }
-        if(item.quantity >= item.unitsInStock) { return item }
-        return { ...item, quantity: item.quantity + 1}
-      })
-      this.setState({ cartItems: updateCartItems })
-      return
+    const prevCartItem = cartItems.find((item) => item.id === productId);
+    const foundProduct = products.find((product) => product.id === productId);
+    console.log(foundProduct);
+
+    if (prevCartItem) {
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id !== productId) item;
+
+        if (item.quantity >= item.unitsInStock) item;
+
+        return { ...item, quantity: item.quantity + 1, };
+      });
+
+      this.setState({ cartItems: updatedCartItems });
+      return;
     }
-    const updateProduct = buildNewCart(productFound)
-    this.setState((prevState) => ({ cartItems: [...prevState.cartItems, updateProduct] }))
+
+    const updatedProduct = buildNewCartItem(foundProduct);
+    this.setState((prevState) => ({
+      cartItems: [...prevState.cartItems, updatedProduct],
+    }));
   }
 
-  // handleChange(event, productId) {}
+  // handleChange(event, productId) {
+  //   const { cartItems } = this.state;
 
-  // handleRemove(productId) {}
+  //   const updatedCartItems = cartItems.map((item) => {
+  //     if (item.id === productId && item.quantity <= item.unitsInStock) {
+  //       return {
+  //         ...item,
+  //         quantity: Number(event.target.value),
+  //       };
+  //     }
 
-  // handleDownVote(productId) {}
+  //     return item;
+  //   });
 
-  // handleUpVote(productId) {}
+  //   this.setState({ cartItems: updatedCartItems });
+  // }
 
-  // handleSetFavorite(productId) {}
+  // handleRemove(productId) {
+  //   const { cartItems } = this.state;
+  //   const updatedCartItems = cartItems.filter((item) => item.id !== productId);
+
+  //   this.setState({
+  //     cartItems: updatedCartItems,
+  //   });
+  // }
+
+  // handleDownVote(productId) {
+  //   const { products } = this.state;
+
+  //   const updatedProducts = products.map((product) => {
+  //     if (
+  //       product.id === productId &&
+  //       product.votes.downVotes.currentValue <
+  //         product.votes.downVotes.lowerLimit
+  //     ) {
+  //       return {
+  //         ...product,
+  //         votes: {
+  //           ...product.votes,
+  //           downVotes: {
+  //             ...product.votes.downVotes,
+  //             currentValue: product.votes.downVotes.currentValue + 1,
+  //           },
+  //         },
+  //       };
+  //     }
+
+  //     return product;
+  //   });
+
+  //   this.setState({ products: updatedProducts });
+  // }
+
+  // handleUpVote(productId) {
+  //   const { products } = this.state;
+
+  //   const updatedProducts = products.map((product) => {
+  //     if (
+  //       product.id === productId &&
+  //       product.votes.upVotes.currentValue < product.votes.upVotes.upperLimit
+  //     ) {
+  //       return {
+  //         ...product,
+  //         votes: {
+  //           ...product.votes,
+  //           upVotes: {
+  //             ...product.votes.upVotes,
+  //             currentValue: product.votes.upVotes.currentValue + 1,
+  //           },
+  //         },
+  //       };
+  //     }
+
+  //     return product;
+  //   });
+
+  //   this.setState({ products: updatedProducts });
+  // }
+
+  // handleSetFavorite(productId) {
+  //   const { products } = this.state;
+
+  //   const updatedProducts = products.map((product) => {
+  //     if (product.id === productId) {
+  //       return {
+  //         ...product,
+  //         isFavorite: !product.isFavorite,
+  //       };
+  //     }
+
+  //     return product;
+  //   });
+
+  //   this.setState({ products: updatedProducts });
+  // }
 
   render() {
     const {
@@ -108,12 +207,12 @@ class App extends Component {
         isLoading={isLoading}
         hasError={hasError}
         loadingError={loadingError}
-        // handleDownVote={() => {}}
-        // handleUpVote={() => {}}
-        // handleSetFavorite={() => {}}
+        // handleDownVote={this.handleDownVote}
+        // handleUpVote={this.handleUpVote}
+        // handleSetFavorite={this.handleSetFavorite}
         handleAddToCart={this.handleAddToCart}
-        // handleRemove={() => {}}
-        // handleChange={() => {}}
+        // handleRemove={this.handleRemove}
+        // handleChange={this.handleChange}
       />
     );
   }
