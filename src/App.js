@@ -34,11 +34,6 @@ class App extends Component {
     };
 
     this.handleAddToCart = this.handleAddToCart.bind(this);
-    // this.handleRemove = this.handleRemove.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleDownVote = this.handleDownVote.bind(this);
-    // this.handleUpVote = this.handleUpVote.bind(this);
-    // this.handleSetFavorite = this.handleSetFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -95,102 +90,6 @@ class App extends Component {
     }));
   }
 
-  // handleChange(event, productId) {
-  //   const { cartItems } = this.state;
-
-  //   const updatedCartItems = cartItems.map((item) => {
-  //     if (item.id === productId && item.quantity <= item.unitsInStock) {
-  //       return {
-  //         ...item,
-  //         quantity: Number(event.target.value),
-  //       };
-  //     }
-
-  //     return item;
-  //   });
-
-  //   this.setState({ cartItems: updatedCartItems });
-  // }
-
-  // handleRemove(productId) {
-  //   const { cartItems } = this.state;
-  //   const updatedCartItems = cartItems.filter((item) => item.id !== productId);
-
-  //   this.setState({
-  //     cartItems: updatedCartItems,
-  //   });
-  // }
-
-  // handleDownVote(productId) {
-  //   const { products } = this.state;
-
-  //   const updatedProducts = products.map((product) => {
-  //     if (
-  //       product.id === productId &&
-  //       product.votes.downVotes.currentValue <
-  //         product.votes.downVotes.lowerLimit
-  //     ) {
-  //       return {
-  //         ...product,
-  //         votes: {
-  //           ...product.votes,
-  //           downVotes: {
-  //             ...product.votes.downVotes,
-  //             currentValue: product.votes.downVotes.currentValue + 1,
-  //           },
-  //         },
-  //       };
-  //     }
-
-  //     return product;
-  //   });
-
-  //   this.setState({ products: updatedProducts });
-  // }
-
-  // handleUpVote(productId) {
-  //   const { products } = this.state;
-
-  //   const updatedProducts = products.map((product) => {
-  //     if (
-  //       product.id === productId &&
-  //       product.votes.upVotes.currentValue < product.votes.upVotes.upperLimit
-  //     ) {
-  //       return {
-  //         ...product,
-  //         votes: {
-  //           ...product.votes,
-  //           upVotes: {
-  //             ...product.votes.upVotes,
-  //             currentValue: product.votes.upVotes.currentValue + 1,
-  //           },
-  //         },
-  //       };
-  //     }
-
-  //     return product;
-  //   });
-
-  //   this.setState({ products: updatedProducts });
-  // }
-
-  // handleSetFavorite(productId) {
-  //   const { products } = this.state;
-
-  //   const updatedProducts = products.map((product) => {
-  //     if (product.id === productId) {
-  //       return {
-  //         ...product,
-  //         isFavorite: !product.isFavorite,
-  //       };
-  //     }
-
-  //     return product;
-  //   });
-
-  //   this.setState({ products: updatedProducts });
-  // }
-
   render() {
     const {
       cartItems,
@@ -207,12 +106,7 @@ class App extends Component {
         isLoading={isLoading}
         hasError={hasError}
         loadingError={loadingError}
-        // handleDownVote={this.handleDownVote}
-        // handleUpVote={this.handleUpVote}
-        // handleSetFavorite={this.handleSetFavorite}
         handleAddToCart={this.handleAddToCart}
-        // handleRemove={this.handleRemove}
-        // handleChange={this.handleChange}
       />
     );
   }
