@@ -4,22 +4,6 @@ import Home from "./pages/Home";
 
 import * as api from "./api";
 
-const LOCAL_STORAGE_KEY = "react-sc-state";
-
-function loadLocalStorageData() {
-  const prevItems = localStorage.getItem(LOCAL_STORAGE_KEY)
-
-  if(!prevItems) {
-    return null
-  }
-
-  try {
-    return JSON.parse(prevItems)
-  } catch (error) {
-    return null
-  }
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -34,25 +18,31 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const prevItems = loadLocalStorageData()
+    const lastState = JSON.parse(localStorage.getItem("app-state"))
 
-    if(!prevItems) {
+    if(!lastState) {
       this.setState({
-        isLoading: true,
-      });
+        isLoading: true
+      })
+
       api.getProducts().then((data) => {
         this.setState({
           products: data,
           isLoading: false,
-        });
-      });
-      return;
+        })
+      })
+      return
     }
 
     this.setState({
-      cartItems:prevItems.cartItems,
-      products: prevItems.products
+      products: lastState.products,
+      cartItems:lastState.cartItems
     })
+  }
+
+  componentDidUpdate () {
+    const { products, cartItems } = this.state
+    localStorage.setItem("app-state", JSON.stringify({products,cartItems }))
   }
 
   // handleAddToCart(productId) {}
