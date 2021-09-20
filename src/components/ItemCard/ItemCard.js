@@ -11,20 +11,20 @@ function Divider() {
   return <hr className="ItemCard__divider" />;
 }
 
-// function getPopularityClasses(
-//   currentValue,
-//   limit,
-//   prevClasses,
-//   popularityClassName,
-// ) {
-//   const halfLimit = Math.floor(limit / 2);
+function getPopularityClasses(
+  currentValue,
+  limit,
+  prevClasses,
+  popularityClassName,
+) {
+  const halfLimit = Math.floor(limit / 2);
 
-//   if (currentValue >= halfLimit) {
-//     return `${prevClasses} ${popularityClassName}`;
-//   }
+  if (currentValue >= halfLimit) {
+    return `${prevClasses} ${popularityClassName}`;
+  }
 
-//   return prevClasses;
-// }
+  return prevClasses;
+}
 
 function ItemCard({
   id,
@@ -74,12 +74,12 @@ function ItemCard({
               <ThumbUp />
             </IconButton>
             <p
-              // className={getPopularityClasses(
-              //   upVotes.currentValue,
-              //   upVotes.upperLimit,
-              //   "ItemCard__icon-txt",
-              //   "ItemCard__icon-popular",
-              // )}
+              className={getPopularityClasses(
+                upVotes.currentValue,
+                upVotes.upperLimit,
+                "ItemCard__icon-txt",
+                "ItemCard__icon-popular",
+              )}
             >
               {upVotes.currentValue}
             </p>
@@ -89,12 +89,12 @@ function ItemCard({
               <ThumbDown />
             </IconButton>
             <p
-              // className={getPopularityClasses(
-              //   downVotes.currentValue,
-              //   downVotes.lowerLimit,
-              //   "ItemCard__icon-txt",
-              //   "ItemCard__icon-unpopular",
-              // )}
+              className={getPopularityClasses(
+                downVotes.currentValue,
+                downVotes.lowerLimit,
+                "ItemCard__icon-txt",
+                "ItemCard__icon-unpopular",
+              )}
             >
               {downVotes.currentValue}
             </p>

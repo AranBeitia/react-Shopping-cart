@@ -33,7 +33,8 @@ class App extends Component {
       loadingError: null,
     };
 
-    this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidMount() {
@@ -90,6 +91,13 @@ class App extends Component {
     }));
   }
 
+  handleRemove(productId) {
+    const { cartItems } = this.state
+    const updatedItems = cartItems.filter(item => item.id !== productId)
+
+    this.setState({cartItems: updatedItems})
+  }
+
   render() {
     const {
       cartItems,
@@ -107,6 +115,7 @@ class App extends Component {
         hasError={hasError}
         loadingError={loadingError}
         handleAddToCart={this.handleAddToCart}
+        handleRemove={this.handleRemove}
       />
     );
   }
