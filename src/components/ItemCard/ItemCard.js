@@ -66,7 +66,7 @@ function ItemCard({
             <p className="mx-1">{upVotes.currentValue}</p>
           </div>
         </div>
-        <Button name="add to cart" onClick={onAddToCart}>
+        <Button onClick={onAddToCart}>
           Add to cart
         </Button>
       </footer>
