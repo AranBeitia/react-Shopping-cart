@@ -7,13 +7,14 @@ function Input({
   value = "",
   placeholder = "",
   handleChange = () => {},
+  errorMessage,
   ...props
 }) {
   return (
     <div className="form-group">
       <label htmlFor={id}>{label}</label>
       <input
-        className="form-control"
+        className={errorMessage ? "form-control is-invalid" : "form-control"}
         id={id}
         name={id}
         type={type}
@@ -22,6 +23,7 @@ function Input({
         onChange={handleChange}
         {...props}
       />
+      {errorMessage && <p className="invalid-feedback">{errorMessage}</p>}
     </div>
   );
 }

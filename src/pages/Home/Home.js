@@ -5,6 +5,7 @@ import Main from "../../components/Main";
 import Footer from "../../components/Footer";
 import ProductsListing from "../../components/ProductsListing";
 import Cart from "../../components/Cart";
+import NewProductForm from "../../components/NewProductForm";
 
 function Home({
   products,
@@ -18,10 +19,13 @@ function Home({
   handleAddToCart,
   handleRemove,
   handleChange,
+  newProductFormOpen,
+  saveNewProduct,
+  toggleNewProductForm,
 }) {
   return (
-    <div>
-      <AppHeader />
+    <>
+      <AppHeader toggleNewProductForm={toggleNewProductForm} />
       <Main className="container-fluid">
         <div className="row">
           <div className="col col-8">
@@ -49,6 +53,14 @@ function Home({
                   </pre>
                 </div>
               )}
+              {newProductFormOpen && (
+                <div className="col col-12">
+                  <NewProductForm
+                    saveNewProduct={saveNewProduct}
+                    toggleNewProductForm={toggleNewProductForm}
+                  />
+                </div>
+              )}
               {!isLoading && !hasError && (
                 <div className="col col-12">
                   <ProductsListing
@@ -72,7 +84,7 @@ function Home({
         </div>
       </Main>
       <Footer />
-    </div>
+    </>
   );
 }
 

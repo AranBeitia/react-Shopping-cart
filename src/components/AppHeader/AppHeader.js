@@ -2,7 +2,9 @@ import React from "react";
 
 import "./AppHeader.scss";
 
-function AppHeader({ ...props }) {
+import Button from "../Button";
+
+function AppHeader({ toggleNewProductForm, ...props }) {
   return (
     <header className="bg-primary mb-4" {...props}>
       <div className="container-fluid">
@@ -20,6 +22,11 @@ function AppHeader({ ...props }) {
               </li>
             </ul>
           </nav>
+          <div className="col col-4 ml-auto d-flex justify-content-end align-items-center">
+            <Button small onClick={toggleNewProductForm}>
+              New product
+            </Button>
+          </div>
         </div>
       </div>
     </header>

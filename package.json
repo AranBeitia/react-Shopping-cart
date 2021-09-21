@@ -1,9 +1,9 @@
 {
-  "name": "react-shopping-cart-components",
+  "name": "react-shopping-cart-forms",
   "version": "1.0.0",
-  "description": "Assembler School: React Shopping Cart Components",
+  "description": "Assembler School: React Shopping Cart Forms",
   "keywords": [
-    "react-shopping-cart-components",
+    "react-shopping-cart-forms",
     "assembler school"
   ],
   "private": true,
@@ -13,15 +13,17 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.5",
     "bootstrap": "^4.6.0",
+    "clsx": "^1.1.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "4.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "sass": "^1.41.1",
+    "sass": "^1.32.11",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.1"
   },
   "devDependencies": {
@@ -84,6 +86,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/assembler-school/react-shopping-cart-components.git"
+    "url": "https://github.com/assembler-school/react-shopping-cart-forms.git"
   }
 }
