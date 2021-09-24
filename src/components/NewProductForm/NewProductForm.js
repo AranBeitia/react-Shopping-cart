@@ -55,6 +55,8 @@ class NewProductForm extends Component {
     this.handleLongDescriptionInputChange = this.handleLongDescriptionInputChange.bind(this)
     this.handleUnitsInStockInputChange = this.handleUnitsInStockInputChange.bind(this)
     this.handleAuthorFirstNameInputChange = this.handleAuthorFirstNameInputChange.bind(this)
+    this.handleAuthorLastNameInputChange = this.handleAuthorLastNameInputChange.bind(this)
+    this.handleAuthorEmailInputChange = this.handleAuthorEmailInputChange.bind(this)
   }
 
   handleSubmit(event) {
@@ -89,11 +91,32 @@ class NewProductForm extends Component {
     this.setState({ unitsInStock: Number(e.target.value) })
   }
 
-  handleAuthorFirstNameInputChange(e) {}
+  handleAuthorFirstNameInputChange(e) {
+    this.setState(prevState => ({
+      author: {
+        ...prevState.author,
+        firstName: e.target.value
+      }
+    }))
+  }
 
-  handleAuthorLastNameInputChange() {}
+  handleAuthorLastNameInputChange(e) {
+    this.setState(prevState => ({
+      author: {
+        ...prevState.author,
+        lastName: e.target.value
+      }
+    }))
+  }
 
-  handleAuthorEmailInputChange() {}
+  handleAuthorEmailInputChange(e) {
+    this.setState(prevState => ({
+      author: {
+        ...prevState.author,
+        email: e.target.value
+      }
+    }))
+  }
 
   render() {
     const {
@@ -193,6 +216,26 @@ class NewProductForm extends Component {
               placeholder="Author first name"
               handleChange={this.handleAuthorFirstNameInputChange}
               errorMessage={errors.authorFirstName}
+            />
+            <Input
+              type="email"
+              label="Author email"
+              id="authorEmail"
+              name={author.email}
+              value={author.email}
+              placeholder="Author email"
+              handleChange={this.handleAuthorEmailInputChange}
+              errorMessage={errors.authorEmail}
+            />
+            <Input
+              type="text"
+              label="Author last name"
+              id="authorLastName"
+              name={author.lastName}
+              value={author.lastName}
+              placeholder="Author last name"
+              handleChange={this.handleAuthorLastNameInputChange}
+              errorMessage={errors.authorLastName}
             />
             <Button submitButton block>
               Submit
